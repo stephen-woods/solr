@@ -20,6 +20,7 @@ package org.apache.solr.ltr.search;
 import java.io.IOException;
 import org.apache.lucene.search.MatchAllDocsQuery;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
 import org.apache.solr.ltr.LTRRescorer;
 import org.apache.solr.ltr.LTRScoringQuery;
 import org.apache.solr.search.AbstractReRankQuery;
@@ -59,7 +60,7 @@ public class LTRQuery extends AbstractReRankQuery {
   }
 
   @Override
-  public RankQuery wrap(Query _mainQuery) {
+  public RankQuery<ScoreDoc> wrap(Query _mainQuery) {
     super.wrap(_mainQuery);
     if (scoringQuery != null) {
       scoringQuery.setOriginalQuery(_mainQuery);

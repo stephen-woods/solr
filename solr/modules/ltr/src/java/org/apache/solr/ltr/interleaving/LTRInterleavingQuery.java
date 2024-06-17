@@ -20,6 +20,7 @@ package org.apache.solr.ltr.interleaving;
 import java.io.IOException;
 import java.util.Arrays;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
 import org.apache.solr.ltr.search.LTRQuery;
 import org.apache.solr.search.RankQuery;
 
@@ -58,7 +59,7 @@ public class LTRInterleavingQuery extends LTRQuery {
   }
 
   @Override
-  public RankQuery wrap(Query _mainQuery) {
+  public RankQuery<ScoreDoc> wrap(Query _mainQuery) {
     super.wrap(_mainQuery);
     for (LTRInterleavingScoringQuery rerankingQuery : rerankingQueries) {
       rerankingQuery.setOriginalQuery(_mainQuery);

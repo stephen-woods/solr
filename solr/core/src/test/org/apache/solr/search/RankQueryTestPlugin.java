@@ -92,7 +92,7 @@ public class RankQueryTestPlugin extends QParserPlugin {
     }
   }
 
-  static class TestRankQuery extends RankQuery {
+  static class TestRankQuery extends RankQuery<ScoreDoc> {
 
     private int mergeStrategy;
     private int collector;
@@ -129,7 +129,7 @@ public class RankQueryTestPlugin extends QParserPlugin {
     }
 
     @Override
-    public RankQuery wrap(Query q) {
+    public RankQuery<ScoreDoc> wrap(Query q) {
       this.q = q;
       return this;
     }
@@ -140,7 +140,7 @@ public class RankQueryTestPlugin extends QParserPlugin {
     }
 
     @Override
-    public TopDocsCollector<? extends ScoreDoc> getTopDocsCollector(
+    public TopDocsCollector<ScoreDoc> getTopDocsCollector(
         int len, QueryCommand cmd, IndexSearcher searcher) {
       if (collector == 0) return new TestCollector(null);
       else return new TestCollector1(null);

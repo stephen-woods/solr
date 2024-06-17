@@ -45,6 +45,7 @@ import org.apache.lucene.search.MatchNoDocsQuery;
 import org.apache.lucene.search.Pruning;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.Scorable;
+import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
 import org.apache.lucene.search.TotalHits;
@@ -195,7 +196,7 @@ public class QueryComponent extends SearchComponent {
         QParser rqparser = QParser.getParser(rankQueryString, req);
         Query rq = rqparser.getQuery();
         if (rq instanceof RankQuery) {
-          RankQuery rankQuery = (RankQuery) rq;
+          RankQuery<? extends ScoreDoc> rankQuery = (RankQuery<? extends ScoreDoc>) rq;
           rb.setRankQuery(rankQuery);
           MergeStrategy mergeStrategy = rankQuery.getMergeStrategy();
           if (mergeStrategy != null) {

@@ -65,19 +65,19 @@ public class ExportQParserPlugin extends QParserPlugin {
     }
   }
 
-  public static class ExportQuery extends RankQuery {
+  public static class ExportQuery extends RankQuery<ScoreDoc> {
     private Query mainQuery;
     private Object id;
 
     @Override
-    public RankQuery clone() {
+    public ExportQuery clone() {
       ExportQuery clone = new ExportQuery();
       clone.id = id;
       return clone;
     }
 
     @Override
-    public RankQuery wrap(Query mainQuery) {
+    public ExportQuery wrap(Query mainQuery) {
       this.mainQuery = mainQuery;
       return this;
     }
@@ -104,7 +104,7 @@ public class ExportQParserPlugin extends QParserPlugin {
     }
 
     @Override
-    public TopDocsCollector<? extends ScoreDoc> getTopDocsCollector(
+    public ExportCollector getTopDocsCollector(
         int len, QueryCommand cmd, IndexSearcher searcher) throws IOException {
       int leafCount = searcher.getTopReaderContext().leaves().size();
       FixedBitSet[] sets = new FixedBitSet[leafCount];

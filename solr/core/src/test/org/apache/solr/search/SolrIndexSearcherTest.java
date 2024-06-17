@@ -290,7 +290,7 @@ public class SolrIndexSearcherTest extends SolrTestCaseJ4 {
             });
   }
 
-  private static final class FixedScoreReRankQuery extends RankQuery {
+  private static final class FixedScoreReRankQuery extends RankQuery<ScoreDoc> {
 
     private Query q;
     private final float fixedScore;
@@ -327,7 +327,7 @@ public class SolrIndexSearcherTest extends SolrTestCaseJ4 {
     }
 
     @Override
-    public TopDocsCollector<? extends ScoreDoc> getTopDocsCollector(
+    public TopDocsCollector<ScoreDoc> getTopDocsCollector(
         int len, QueryCommand cmd, IndexSearcher searcher) throws IOException {
       return new ReRankCollector(
           len,
@@ -358,7 +358,7 @@ public class SolrIndexSearcherTest extends SolrTestCaseJ4 {
     }
 
     @Override
-    public RankQuery wrap(Query q) {
+    public RankQuery<ScoreDoc> wrap(Query q) {
       this.q = q;
       return this;
     }

@@ -33,7 +33,7 @@ import org.apache.solr.handler.component.MergeStrategy;
 import org.apache.solr.handler.component.QueryElevationComponent;
 import org.apache.solr.request.SolrRequestInfo;
 
-public abstract class AbstractReRankQuery extends RankQuery {
+public abstract class AbstractReRankQuery extends RankQuery<ScoreDoc> {
   protected Query mainQuery;
   protected final int reRankDocs;
   protected final Rescorer reRankQueryRescorer;
@@ -61,7 +61,7 @@ public abstract class AbstractReRankQuery extends RankQuery {
   }
 
   @Override
-  public RankQuery wrap(Query _mainQuery) {
+  public RankQuery<ScoreDoc> wrap(Query _mainQuery) {
     if (_mainQuery != null) {
       this.mainQuery = _mainQuery;
     }
@@ -75,7 +75,7 @@ public abstract class AbstractReRankQuery extends RankQuery {
 
   @Override
   @SuppressWarnings({"unchecked"})
-  public TopDocsCollector<? extends ScoreDoc> getTopDocsCollector(
+  public TopDocsCollector<ScoreDoc> getTopDocsCollector(
       int len, QueryCommand cmd, IndexSearcher searcher) throws IOException {
     if (this.boostedPriority == null) {
       SolrRequestInfo info = SolrRequestInfo.getRequestInfo();

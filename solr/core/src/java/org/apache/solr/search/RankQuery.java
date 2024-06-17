@@ -27,12 +27,12 @@ import org.apache.solr.handler.component.MergeStrategy;
  * <b>Note: This API is experimental and may change in non backward-compatible ways in the
  * future</b>
  */
-public abstract class RankQuery extends ExtendedQueryBase {
+public abstract class RankQuery<T extends ScoreDoc> extends ExtendedQueryBase {
 
-  public abstract TopDocsCollector<? extends ScoreDoc> getTopDocsCollector(
+  public abstract TopDocsCollector<T> getTopDocsCollector(
       int len, QueryCommand cmd, IndexSearcher searcher) throws IOException;
 
   public abstract MergeStrategy getMergeStrategy();
 
-  public abstract RankQuery wrap(Query mainQuery);
+  public abstract RankQuery<T> wrap(Query mainQuery);
 }

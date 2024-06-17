@@ -1798,7 +1798,7 @@ public class SolrIndexSearcher extends IndexSearcher implements Closeable, SolrI
     int minNumFound = cmd.getMinExactCount();
     Query q = cmd.getQuery();
     if (q instanceof RankQuery) {
-      RankQuery rq = (RankQuery) q;
+      RankQuery<? extends ScoreDoc> rq = (RankQuery<? extends ScoreDoc>) q;
       return rq.getTopDocsCollector(len, cmd, this);
     }
 

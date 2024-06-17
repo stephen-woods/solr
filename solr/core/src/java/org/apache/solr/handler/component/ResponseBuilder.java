@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TotalHits;
 import org.apache.lucene.search.grouping.SearchGroup;
 import org.apache.lucene.search.grouping.TopGroups;
@@ -86,7 +87,7 @@ public class ResponseBuilder {
   private CursorMark nextCursorMark;
 
   private List<MergeStrategy> mergeStrategies;
-  private RankQuery rankQuery;
+  private RankQuery<? extends ScoreDoc> rankQuery;
 
   private DocListAndSet results = null;
   private NamedList<Object> debugInfo = null;
@@ -258,11 +259,11 @@ public class ResponseBuilder {
     return this.mergeStrategies;
   }
 
-  public RankQuery getRankQuery() {
+  public RankQuery<? extends ScoreDoc> getRankQuery() {
     return rankQuery;
   }
 
-  public void setRankQuery(RankQuery rankQuery) {
+  public <T extends ScoreDoc> void setRankQuery(RankQuery<T> rankQuery) {
     this.rankQuery = rankQuery;
   }
 

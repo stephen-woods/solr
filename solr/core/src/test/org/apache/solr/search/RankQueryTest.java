@@ -147,9 +147,9 @@ public class RankQueryTest extends SolrTestCaseJ4 {
     }
   }
 
-  static class MyRankQuery extends RankQuery {
+  static class MyRankQuery extends RankQuery<MyScoreDoc> {
     @Override
-    public TopDocsCollector<? extends ScoreDoc> getTopDocsCollector(
+    public TopDocsCollector<MyScoreDoc> getTopDocsCollector(
         int len, QueryCommand cmd, IndexSearcher searcher) throws IOException {
       return new MyTopDocsCollector(null);
     }
@@ -160,7 +160,7 @@ public class RankQueryTest extends SolrTestCaseJ4 {
     }
 
     @Override
-    public RankQuery wrap(Query mainQuery) {
+    public RankQuery<MyScoreDoc> wrap(Query mainQuery) {
       return this;
     }
 
